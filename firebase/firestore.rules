@@ -1,0 +1,141 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // match /{document=**} {
+    //   allow read, write: if true; 
+    // }
+    
+    match /campaign/{cid} {
+    allow read : if true;
+    allow write : if isLoggedIn();// && getRole().role == 'dev';
+    }
+    match /campaign/{id}/{title}/{pid} {
+    allow read : if true;
+    allow write : if isLoggedIn();// && getRole().role == 'dev';
+    }
+    
+    match /cart/{cartId} {
+    allow read , write : if isLoggedIn() && isOwner(cartId);
+    }
+    match /cart/{cartId}/cart/{pid} {
+    allow read , write : if isLoggedIn() && isOwner(cartId);
+    }
+    
+    match /employess/{id} {
+     allow read : if isLoggedIn() && isEmployee();
+     allow write : if isLoggedIn();// && getRole().role == 'dev';
+    }
+    
+    match /flash/flash/flash/{pid} {
+    allow read : if true;
+    allow write : if isLoggedIn() ;//&& getRole().role == 'dev';
+    }
+    
+    match /inApp/appUpdate {
+    allow read : if true;
+    allow update : if isLoggedIn() ;//&& getRole().role == 'dev';
+    }
+    match /inApp/charges {
+    allow read : if true;
+    allow update : if isLoggedIn() ;//&&getRole().role == 'dev';
+    }
+    match /inApp/gsheets {
+    allow read :if  isLoggedIn() ;//getRole().role == 'admin' || getRole().role == 'dev';
+    }
+    match /inApp/orderID {
+    allow read : if isLoggedIn();
+    allow update : if isLoggedIn();
+    }
+    match /inApp/ssl {
+    allow read : if isLoggedIn();
+    }
+    match /inApp/vouchers {
+    allow read , write : if isLoggedIn();
+    }
+    match /inApp/vouchers/IndividualVoucher/{code=**} {
+    allow read , write : if isLoggedIn();
+    }
+    match /inApp/vouchers/global/{code} {
+    allow read , write : if isLoggedIn();
+    }
+   
+    match /items/{pid=**} {
+    allow read : if true;
+    allow create , update : if isLoggedIn();// && isEmployee();
+    allow delete : if isLoggedIn();// && (getRole().role == 'admin' || getRole().role == 'dev');
+    }
+    
+    match /news/{news=**} {
+    allow read : if true;
+    allow write : if isLoggedIn();// && isEmployee();
+    }
+    
+    match /orders/{orderId} {
+    allow read : if isLoggedIn(); // isOwner(existingData().user.uid);// || isEmployee();
+    allow create :if isLoggedIn(); // if isOwner(incomingData().user.uid);
+    allow update :if isLoggedIn(); // if isOwner(existingData().user.uid);// || isEmployee();
+    allow delete : if false; //getRole().role == 'dev';
+    }
+    
+    match /slider/{slide =**} {
+    allow read : if true;
+    allow create , update : if isLoggedIn();
+    allow delete : if false; 
+    // allow write : if isEmployee();
+    }
+    
+    match /users/{uid} {
+    allow read : if isOwner(uid) || isEmployee();
+    allow create : if isOwner(incomingData().uid);
+    allow update : if isOwner(existingData().uid)  || isEmployee();
+    allow delete :if false; // if isOwner(existingData().uid);
+    }
+    match /users/{uid}/address/{address=**} {
+    allow read : if isOwner(uid); //|| getRole().role == 'dev';
+    allow update , delete : if false; //if isOwner(getUid());
+    allow create : if isOwner(getUid());
+    }
+    match /users/{uid}/voucher/{code=**} {
+    allow read : if isOwner(uid); //|| getRole().role == 'dev';
+    allow update , delete : if isOwner(getUid()) || isEmployee();
+    allow create : if isLoggedIn();// && isEmployee();
+    }
+    
+    match /wishlist/{wish} {
+    allow read , write : if isLoggedIn();// && isOwner(wish);
+    }
+    match /wishlist/{wish}/wishlist/{pid} {
+    allow read , write : if isLoggedIn() && isOwner(wish);
+    }
+    
+    /// Functions ///
+
+    // function getRole() {
+    //   return get(/databases/$(database)/documents/employess/$(request.auth.uid)).data
+    // }			
+    
+    function isEmployee() {
+      return exists(/databases/$(database)/documents/employess/$(request.auth.uid))
+    }
+    
+    function isLoggedIn() {
+    return request.auth != null 
+    }
+    
+    function isOwner(uid) {
+    	return isLoggedIn() && request.auth.uid == uid
+    }
+    
+     function getUid() {
+    	return request.auth.uid
+    }
+    
+    function existingData() {
+    return resource.data
+    }
+    function incomingData() {
+    return request.resource.data
+    }
+    
+  }
+}

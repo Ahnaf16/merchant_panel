@@ -1,0 +1,116 @@
+name: merchant_panel
+description: A new Flutter project.
+
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 2.3.0+7
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.5
+  fluent_ui: ^4.0.3+1
+  #Firebase & Storage
+  firebase_auth: ^4.1.1
+  firebase_core: ^2.1.1
+  cloud_firestore: ^4.0.4
+  firebase_storage: ^11.0.4
+  shared_preferences: ^2.0.15
+  #ui
+  google_fonts: ^3.0.1
+  carousel_slider: ^4.1.1
+  custom_clippers: ^2.0.0
+  shimmer_animation: ^2.1.0+1
+  flutter_native_splash: ^2.2.14
+  automatic_animated_list: ^1.1.0
+  flutter_staggered_grid_view: ^0.6.2
+  material_design_icons_flutter: ^5.0.6996
+  #functional
+  go_router: ^5.1.5
+  path_provider: ^2.0.11
+  image_picker: ^0.8.6
+  webview_flutter: ^3.0.4
+  pull_to_refresh: ^2.0.0
+  flutter_riverpod: ^2.1.1
+  flutter_easyloading: ^3.0.5
+  cached_network_image: ^3.2.2
+  youtube_player_iframe: ^3.1.0
+   #Documents
+  pdf: ^3.8.4
+  gsheets: ^0.4.2
+  url_launcher: ^6.1.6
+  syncfusion_flutter_charts: ^20.3.52
+  syncfusion_flutter_datagrid: ^20.3.52
+  syncfusion_flutter_xlsio: ^20.3.52-beta
+  #util
+  intl: ^0.17.0
+  nanoid: ^1.0.0
+  collection: ^1.16.0
+  universal_html: ^2.0.8
+  package_info_plus: ^3.0.1
+     
+  
+  
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.1
+  #flutter pub run change_app_package_name:main com.new.package.name
+  change_app_package_name: ^1.1.0
+  # flutter pub run flutter_launcher_icons:main
+  flutter_launcher_icons: ^0.10.0
+  
+
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/
+    - assets/logo/
+    - assets/misc/
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For 
+  # example:
+  fonts:
+    - family: PotroSans
+      fonts:
+        - asset: fonts/PotroSans/PotroSansR.ttf
+         
+    - family: LiAdorR
+      fonts:
+        - asset: fonts/LiAdor/LiAdorR.ttf
+        - asset: fonts/LiAdor/LiAdorVF.ttf
+        - asset: fonts/LiAdor/LiAdorAn.ttf
+        - asset: fonts/LiAdor/LiAdorU.ttf
+
+    - family: Tiro
+      fonts:
+        - asset: fonts/Tiro/Tiro.ttf
+        
+
+       
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages
+
+
+#flutter pub run flutter_native_splash:create
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/logo/logo_l.png
+  web: true
+  web_image_mode: center
+
+
+  
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/logo/logo.png"
