@@ -123,40 +123,38 @@ class ProductsTile extends ConsumerWidget {
                               arguments: items);
                         },
                       ),
-                      if (roles.canDeleteItem())
-                        MenuFlyoutItem(
-                          text: const Text(
-                            'Remove',
-                            style: TextStyle(
-                              color: Colors.warningPrimaryColor,
-                            ),
-                          ),
-                          leading: const Icon(
-                            FluentIcons.delete,
+                      // if (roles.canDeleteItem())
+                      MenuFlyoutItem(
+                        text: const Text(
+                          'Remove',
+                          style: TextStyle(
                             color: Colors.warningPrimaryColor,
                           ),
-                          onPressed: () async {
-                            await deleteButtonDialog(
-                              context: context,
-                              onDelete: () {
-                                ProductServices.deleteProducts(
-                                  product: items,
-                                );
-                                UploadImage.deleteImage(
-                                    fileName: items.name,
-                                    path: 'products_image');
-
-                                EasyLoading.showToast(
-                                  'Product Deleted',
-                                  toastPosition:
-                                      EasyLoadingToastPosition.bottom,
-                                );
-
-                                Navigator.pop(context);
-                              },
-                            );
-                          },
                         ),
+                        leading: const Icon(
+                          FluentIcons.delete,
+                          color: Colors.warningPrimaryColor,
+                        ),
+                        onPressed: () async {
+                          await deleteButtonDialog(
+                            context: context,
+                            onDelete: () {
+                              ProductServices.deleteProducts(
+                                product: items,
+                              );
+                              UploadImage.deleteImage(
+                                  fileName: items.name, path: 'products_image');
+
+                              EasyLoading.showToast(
+                                'Product Deleted',
+                                toastPosition: EasyLoadingToastPosition.bottom,
+                              );
+
+                              Navigator.pop(context);
+                            },
+                          );
+                        },
+                      ),
                       MenuFlyoutItem(
                         text: const Text('In stock'),
                         leading: const Icon(FluentIcons.packages),

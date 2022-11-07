@@ -2,6 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/gestures.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:merchant_panel/app/setting/app%20Settings/app_sett_providers.dart';
 import 'package:merchant_panel/app/setting/settings_page.dart';
 import 'package:merchant_panel/extension/context_extensions.dart';
@@ -99,11 +100,15 @@ class _NavigationPageState extends ConsumerState<NavigationPage> {
                       indexWebN.setIndex(newIndex);
                     },
                     header: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: Image.asset(
-                        'assets/logo/logo_l.png',
-                        fit: BoxFit.cover,
-                        width: 200,
+                      padding: const EdgeInsets.all(10),
+                      child: Center(
+                        child: Text(
+                          'Merchant Panel',
+                          style: GoogleFonts.catamaran(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ),
                     displayMode: layout.isSmallScreen
